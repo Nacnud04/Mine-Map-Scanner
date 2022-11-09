@@ -237,9 +237,9 @@ class Image:
         contour = Contours(self.data)
         contour.reformatContours()
         cropbounds = contour.cropLocations()
-        num, origins = self.cropByContours(cropbounds, bordersize)
+        num, origins, offsets = self.cropByContours(cropbounds, bordersize)
         #contour.showContours(self.raw)
-        return num, origins
+        return num, origins, offsets
 
     def genSegments(self, divisions):
         maxi, maxj = 0, 0
@@ -282,6 +282,7 @@ class Image:
     def cropByContours(self, cropbounds, bordersize = 0.25):
         i = 0
         origins = []
+        offsets = []
         for cropbound in cropbounds:
             xmin, ymin, xmax, ymax = cropbound
             origins.append((xmin, ymin))
@@ -296,11 +297,12 @@ class Image:
                         borderType=cv2.BORDER_CONSTANT,
                         value=255
                     )
+            offsets.append((int(0.25*abs(xmin-xmax)), int(0.25*abs(ymin-ymax))))
             cv2.imwrite(f'{self.path}/{i}.jpg', crop)
             sys.stdout.flush()
             sys.stdout.write(f'\rSegmenting Image... |i:{i}|y0:{ymin}|y1:{ymax}|x0:{xmin}|x1:{xmax}     ')
             i += 1
-        return i, origins
+        return i, origins, offsets
 
 class Contours:
 
@@ -554,12 +556,12 @@ class Lines:
                 merged = self.mergeTwoLines(segment, self.segments[index])
                 if merged != None:
                     sys.stdout.flush()
-                    sys.stdout.write(f'\rMerging detected lines... {i}/{initiallength}')
+                    sys.stdout.write(f'\rMerging detected lines...')
                     segment = merged
                     toremove.append(int(index))
             iterations = 0
-            for i in toremove:
-                self.segments = np.delete(self.segments, i-iterations, axis = 0)
+            for j in toremove:
+                self.segments = np.delete(self.segments, j-iterations, axis = 0)
                 iterations += 1 # this works since the smallest indexes are subtracted first
             i += 1
         print(f'\n# of line segments reduced from {initiallength} to {len(self.segments)}')
