@@ -34,7 +34,6 @@ def grabSegmentContour(folder, num):
 
 # combine and interpret the data
 def transformDataGrid(data, folder, ppdh, ppdw):
-    print(f'\nDetected {len(data)} words.')
     transformed = []
     for datapoint in data:
         try :
@@ -75,11 +74,10 @@ def transformDataGrid(data, folder, ppdh, ppdw):
 
 # combine and interpret the data
 def transformDataContoured(data, folder, bordersize = 0.25):
-    print(f'\nDetected {len(data)} words.')
     transformed = []
     for datapoint in data:
         try :
-            text, confidence, location, theta, x, y, w, h, xoffset, yoffset = datapoint
+            text, confidence, location, theta, x, y, w, h, xorigin, yorigin, xoffset, yoffset = datapoint
 
             # import the image dimensions for each text localization
             img = grabSegmentContour(folder, location)
@@ -100,14 +98,10 @@ def transformDataContoured(data, folder, bordersize = 0.25):
             x1, y1 = int(x1*cos(revtheta)-y1*sin(revtheta) + cX), int(x1*sin(revtheta)+y1*cos(revtheta) + cY)
             x2, y2 = int(x2*cos(revtheta)-y2*sin(revtheta) + cX), int(x2*sin(revtheta)+y2*cos(revtheta) + cY)
             x3, y3 = int(x3*cos(revtheta)-y3*sin(revtheta) + cX), int(x3*sin(revtheta)+y3*cos(revtheta) + cY)
-        
-            # calculate offset from borders of segments
-            dx = int((imagewidth / 2) - (imagewidth / (2*(bordersize+1))))
-            dy = int((imageheight / 2) - (imageheight / (2*(bordersize+1))))
             
             # calculate offset for the image segment
-            x0, x1, x2, x3 = int(xoffset+x0 - dx), int(xoffset+x1 - dx), int(xoffset+x2 - dx), int(xoffset+x3 - dx)
-            y0, y1, y2, y3 = int(yoffset+y0 - dy), int(yoffset+y1 - dy), int(yoffset+y2 - dy), int(yoffset+y3 - dy)
+            x0, x1, x2, x3 = int(xorigin+x0-xoffset), int(xorigin+x1-xoffset), int(xorigin+x2-xoffset), int(xorigin+x3-xoffset)
+            y0, y1, y2, y3 = int(yorigin+y0-yoffset), int(yorigin+y1-yoffset), int(yorigin+y2-yoffset), int(yorigin+y3-yoffset)
 
             transformed.append((text, (x0, y0), (x1, y1), (x2, y2), (x3, y3), confidence))
 
