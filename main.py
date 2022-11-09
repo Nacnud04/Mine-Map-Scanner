@@ -108,8 +108,9 @@ for ele in components:
 print(f'Image Name: {imagename} \nFolder Path: {folder}')
 
 # interpret grid divisions
-grid = gridstring.split(",")
-grid = [int(x) for x in grid]
+if gridstring:
+    grid = gridstring.split(",")
+    grid = [int(x) for x in grid]
 
 
 ### BEGIN PRE-PROCESSING ###
@@ -143,7 +144,7 @@ def parseFilters(appliedfilters):
 filterlist = parseFilters(appliedfilters)
 
 ## SET GRID SEGMENTATION OR CONTOUR SEGMENTATION
-segmenttype = "contour"
+segmenttype = "grid"
 
 # Initalize image, and cut into segments
 image = Image(imagepath, initialfilters)
@@ -157,7 +158,7 @@ if segmenttype == "grid":
         raise Exception("angle fidelity is 0. the program must be stopped or it will run continously.")
 elif segmenttype == "contour":
     bordersize = 0.25
-    segmentnum, origins = image.genCropContours(bordersize)
+    segmentnum, origins, offsets = image.genCropContours(bordersize)
     # calculate number of images being processed
     try:
         numimages = int((((finalangle - startangle) / anglefidelity) + 1) * (segmentnum) * len(filterlist))
@@ -218,14 +219,17 @@ elif segmenttype == "contour":
     cycles = 0
     for i in range(segmentnum):
         img = grabSegmentContour(folder, i)
-        xoffset, yoffset = origins[i]
+        xorigin, yorigin = origins[i]
+        xoffset, yoffset = offsets[i]
         theta = startangle
         while theta <= finalangle:
             # apply OCR here
             sys.stdout.write(f'\rScanned: {cycles}/{numimages}  |  Name: {folder}{i}.jpg    ')
             sys.stdout.flush()
             rotated = rotateImage(img, theta)
-            newdata = ocr.OCR(rotated, theta, minheight, minwidth, minconf, minratio, (i), xoffset=xoffset, yoffset=yoffset)
+            newdata = ocr.OCR(rotated, theta, minheight, minwidth, minconf, 
+                              minratio, (i), xorigin=xorigin, yorigin=yorigin,
+                              xoffset=xoffset, yoffset=yoffset)
             if newdata != []:
                 data.extend(newdata)
             theta += anglefidelity
@@ -268,6 +272,7 @@ def secondsConversion(seconds):
 et = time.time()
 elapsed = et - st
 print(secondsConversion(elapsed))
+print(f'\nDetected {len(transformed)} words.')
 
 # show data
 showData(transformed, img, outputheight, 6)
