@@ -17,7 +17,7 @@ def check_if_word(word):
     return status
 
 # main ocr function
-def OCR(img, theta = float, minheight=int, minwidth=int, minconf=int, minratio=int, location=tuple, xoffset=None, yoffset=None):
+def OCR(img, theta = float, minheight=int, minwidth=int, minconf=int, minratio=int, location=tuple, xorigin=None, yorigin=None, xoffset=None, yoffset=None):
     # detect
     results = pytesseract.image_to_data(img, output_type=Output.DICT)
 
@@ -74,6 +74,9 @@ def OCR(img, theta = float, minheight=int, minwidth=int, minconf=int, minratio=i
             pass
 
         if conf > minconf and show == True and ratio >= minratio:
-            data.append((text, conf, location, theta, x, y, w, h, xoffset, yoffset))
+            if xorigin != None:
+                data.append((text, conf, location, theta, x, y, w, h, xorigin, yorigin, xoffset, yoffset))
+            else:
+                data.append((text, conf, location, theta, x, y, w, h))
             #print(f'Confidence: {conf}  |  Text: {text}  |  Hex: {texthex}')
     return data
