@@ -28,7 +28,7 @@ Parses test from old mining claim maps (~1850-1980) and exports as a csv.
 # Setting up environment
 ## Checking python version
 This program requires 'python3'. Running this in 'python2' will not work. Python '3.10' is ideal.
-You can check your python version with the following:
+You can check your python version by opening terminal typing the following:
 ````
 python -V
 ````
