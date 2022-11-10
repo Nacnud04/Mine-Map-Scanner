@@ -35,6 +35,7 @@ python -V
     python3 -V
 
 Which ever returns the proper version should be the command which the program is run from.
+
 ---
 ## Required libraries
 Libraries are programs created by other people which other programs use to run higher level operations. This program requires quite a few of them.
