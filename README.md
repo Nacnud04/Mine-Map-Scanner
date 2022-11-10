@@ -27,7 +27,7 @@ Parses test from old mining claim maps (~1850-1980) and exports as a csv.
 ---
 # Setting up environment
 ## Checking python version
-This program requires 'python3'. Running this in 'python2' will not work. Python '3.10' is ideal.
+This program requires `python3`. Running this in `python2` will not work. Python `3.10` is ideal.
 You can check your python version by opening terminal typing the following:
 ````
 python -V
@@ -40,7 +40,7 @@ Which ever returns the proper version should be the command which the program is
 ## Required libraries
 Libraries are programs created by other people which other programs use to run higher level operations. This program requires quite a few of them.
 ### Preprocessing, Postprocessing, OCR
-These libraries are in this github repository, and they were written along with the program. To include these the files 'PreProcessing.py', 'PostProcessing.py', and 'OCR.py' all need to be included in the same directory as 'main.py'
+These libraries are in this github repository, and they were written along with the program. To include these the files `PreProcessing.py`, `PostProcessing.py`, and `OCR.py` all need to be included in the same directory as `main.py`
 ### The rest
 ```
 The rest of the libraries include argparse, cv2, numpy, datetime, time, scipy, matplotlib
