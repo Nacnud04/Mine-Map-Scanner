@@ -71,6 +71,7 @@ For ease of use the best folder directory contains the following (bold are folde
 * main.py
 * **Map Name**
   * map.jpg  
+  
 The folder named **Map Name** will contain all of the exported data, as well as the files which are created during program operation.
 
 ---
