@@ -67,6 +67,9 @@ ap.add_argument("-ir", "--intersection-requirement",
 ap.add_argument("-rc", "--result-consolidation",
         type=bool, default = True,
         help="enable/disable result consolidation")
+ap.add_argument("-st", "--segmentation-type",
+        type=str, default = 'grid',
+        help="defines how the image is to be segmented. possible options include grid or contour")
 args = vars(ap.parse_args())
 
 # interpret arguments given
@@ -144,7 +147,7 @@ def parseFilters(appliedfilters):
 filterlist = parseFilters(appliedfilters)
 
 ## SET GRID SEGMENTATION OR CONTOUR SEGMENTATION
-segmenttype = "grid"
+segmenttype = args["segmentation_type"]
 
 # Initalize image, and cut into segments
 image = Image(imagepath, initialfilters)
