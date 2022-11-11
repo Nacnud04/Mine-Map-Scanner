@@ -9,6 +9,7 @@ Parses test from old mining claim maps (~1850-1980) and exports as a csv.
 * Settings and their functions
   * -i --image
   * -d --display
+  * -st --segmentation-type
   * -dg --divide-grid
   * -de --divide-exact
   * -sa --start-angle
@@ -105,6 +106,8 @@ The input map should ideally be at as high of a resolution and clarity as possib
 ## -d --display
 When the program is finished running, it pops up the image with red boxes outlining where it thinks text was detected. This image by default is the image specified by `-i`, however `-d` is used it will display the results on the image at the path specified by `-d`. The path for the image is defined the exact same way as it was for -i. The display image used should be at the same resolution as the image defined by `-i`.  
 The optimal use case of this setting would be if the user added filters to the input image by hand using a photo editor, but then wanted to display the results on the original image. In this case they would define the filtered image with `-i` and the original image at `-d`. 
+## -st --segmentation-type
+The image can be segmented by two different methods, either `"grid"` or `"contour"`. Grid segmentation splits the image by the grid defined by `-dg`. This works well with medium to large words. Contour segmentation tries to identify where words are and then create segments around those locations. This works ok for medium words and well for small words, however this is slightly slower.
 ## -dg --divide-grid
 When running using **grid segmentation** this input is **required**. When running using **contouring segmentation** this input should not be used.  
 This is the function which defines the grid. This setting is inputed as `rr,cc` where `rr = #rows` and `cc = #columns` 
