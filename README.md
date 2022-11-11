@@ -66,7 +66,7 @@ pip install argparse opencv-python numpy datetime scipy matplotlib
 
 ---
 ## Setting up the directory
-For ease of use the best folder directory contains the following (bold are folders):  
+For ease of use, the best folder directory contains the following (bold are folders):  
 * PreProcessing.py
 * PostProcessing.py
 * OCR.py
@@ -83,7 +83,7 @@ To do this enter commandline and enter the directory which was set up in the pre
 ### Changing directories in command line
 To move up a directory type the following:
 ```
-cd "DirectoryName"
+cd "Directory Name"
 ```
 To move down a directory type the following:
 ```
