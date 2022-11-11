@@ -169,6 +169,7 @@ During execution of the program multiple things will be printed to terminal, exp
 * Merging lines
 * Segmenting the image
 * Scanning segments
+* Number of words detected
 * Displaying image/output data
 * Time to run program
 
