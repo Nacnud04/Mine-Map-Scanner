@@ -27,6 +27,7 @@ Parses test from old mining claim maps (~1850-1980) and exports as a csv.
   * -rc --result-consolidation
 * During the program
 * Output/Understanding the Results
+* Other useful features
 
 ---
 # Setting up environment
@@ -190,3 +191,8 @@ Word2,(345,1345),(342,5646),(324,2356),(286,6543),87
 word3,(34,12),(48,26),(97,46),(46,87),45
 ```
 Points 1 through 4 form the 4 corners of a rectangular bounding box around the detected word. This bounding box will be tilted in the angle which the word was detected at. Additionally if result consolidation is enabled this bounding box is the largest box which the word was detected in.
+
+---
+# Other useful features
+## Exporting data as image
+The output data can also be exported as an image if so desired. This can be by the functions (to be continued...)
