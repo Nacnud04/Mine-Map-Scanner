@@ -195,4 +195,26 @@ Points 1 through 4 form the 4 corners of a rectangular bounding box around the d
 ---
 # Other useful features
 ## Exporting data as image
-The output data can also be exported as an image if so desired. This can be by the functions (to be continued...)
+When the program normally finishes running this image can be saved. For this to be done, the program needs to finish scanning the map fully. Then a few lines of python can by typed into terminal to call the export function. The image will then be exported with the file extension of choice at the full resolution of the input image. This output image can be just the boxes, or include the word it predicted next to the box.
+### Exporting just the image with the bounding boxes
+First we need to enter the python environment, so type the following into terminal after entering the directory which has the program files.
+```
+python
+```
+Then we can type the following to get the data:
+```
+import cv2
+from PostProcessing import *
+img = cv2.imread("name-and-path-to-mapscan.jpg")
+data = importData("path-to-output-file","out.csv")
+thickness = 5
+exportImage(data, img, thickness, "output-file-path-and/name.jpg")
+```
+Or the following can also be typed for more ease:
+```
+import cv2
+from PostProcessing import *
+exportImage(importData("path-to-output-file","out.csv"), cv2.imread("name-and-path-to-mapscan.jpg"), 5, "output-file-path-and/name.jpg")
+```
+### Exporting the image with bounded boxes and printed detected words
+The same lines of code as above can be used, however the "exportImage" function needs to be replaced with "exportImageWords". Other than that no other changes are necessary.
