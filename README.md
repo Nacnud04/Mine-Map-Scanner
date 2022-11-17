@@ -5,8 +5,8 @@ Parses test from old mining claim maps (~1850-1980) and exports as a csv.
 * Checking python version
 * Required libraries
 * Setting up the directory.
-* Running the program
-* Settings and their functions
+* **Running the program**
+* **Settings and their functions**
   * -i --image
   * -d --display
   * -st --segmentation-type
@@ -26,8 +26,9 @@ Parses test from old mining claim maps (~1850-1980) and exports as a csv.
   * -ir --intersection-requirement
   * -rc --result-consolidation
 * During the program
-* Output/Understanding the Results
+* **Output/Understanding the Results**
 * Other useful features
+* **How does this program worK?**
 
 ---
 # Setting up environment
